@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
       // --- LOGIN GAGAL ---
       $_SESSION['error'] = "Username atau password salah!";
-      // UBAH DISINI: Arahkan kembali ke folder auth
       header("Location: ../auth/login");
       exit;
     }

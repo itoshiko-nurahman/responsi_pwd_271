@@ -10,15 +10,6 @@ if (isset($_SESSION['user_id'])) {
   header("Location: " . BASE_URL . "index");
   exit;
 }
-
-// Clear error and success messages after displaying them
-if (isset($_SESSION['error'])) {
-  unset($_SESSION['error']);
-}
-
-if (isset($_SESSION['success'])) {
-  unset($_SESSION['success']);
-}
 ?>
 <!DOCTYPE html>
 <html lang="id">
