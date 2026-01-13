@@ -1,0 +1,148 @@
+CREATE DATABASE IF NOT EXISTS library_db;
+USE library_db;
+
+-- Tabel Users
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+-- Login: admin / admin123
+INSERT INTO users (username, password) VALUES ('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+
+-- Tabel Books
+CREATE TABLE books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    author VARCHAR(255),
+    isbn VARCHAR(20),
+    rating DECIMAL(3,2),
+    pages INT,
+    language VARCHAR(10),
+    stock INT DEFAULT 5
+);
+
+-- Tabel Loans
+CREATE TABLE loans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    book_id INT,
+    student_name VARCHAR(100),
+    nim VARCHAR(20),
+    loan_date DATE,
+    return_date DATE,
+    status ENUM('borrowed', 'returned') DEFAULT 'borrowed',
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+);
+
+-- Tabel Similarity Requests
+CREATE TABLE similarity_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_email VARCHAR(100),
+    title VARCHAR(255),
+    file_path VARCHAR(255),
+    status ENUM('sent') DEFAULT 'sent',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- INSERT 100 DATA BUKU
+INSERT INTO books (title, author, rating, isbn, language, pages, stock) VALUES
+('Harry Potter and the Half-Blood Prince', 'J.K. Rowling', 4.57, '0439785960', 'eng', 652, 5),
+('Harry Potter and the Order of the Phoenix', 'J.K. Rowling', 4.49, '0439358078', 'eng', 870, 5),
+('Harry Potter and the Chamber of Secrets', 'J.K. Rowling', 4.42, '0439554896', 'eng', 352, 5),
+('Harry Potter and the Prisoner of Azkaban', 'J.K. Rowling', 4.56, '043965548X', 'eng', 435, 5),
+('The Hitchhikers Guide to the Galaxy', 'Douglas Adams', 4.22, '1400052920', 'eng', 215, 5),
+('A Short History of Nearly Everything', 'Bill Bryson', 4.21, '076790818X', 'eng', 544, 5),
+('Notes from a Small Island', 'Bill Bryson', 3.91, '0380727501', 'eng', 324, 5),
+('The Lord of the Rings', 'J.R.R. Tolkien', 4.50, '0618517650', 'eng', 1184, 5),
+('The Fellowship of the Ring', 'J.R.R. Tolkien', 4.36, '0618346252', 'eng', 398, 5),
+('Hatchet', 'Gary Paulsen', 3.72, '0689840926', 'eng', 208, 5),
+('The Known World', 'Edward P. Jones', 3.83, '0061159174', 'eng', 388, 5),
+('Heidi', 'Johanna Spyri', 3.99, '0753454947', 'eng', 352, 5),
+('Dune', 'Frank Herbert', 4.24, '0441172717', 'eng', 604, 5),
+('Anna Karenina', 'Leo Tolstoy', 4.05, '0143035002', 'eng', 838, 5),
+('Romeo and Juliet', 'William Shakespeare', 3.74, '0743477111', 'eng', 194, 5),
+('To Kill a Mockingbird', 'Harper Lee', 4.28, '0061120081', 'eng', 324, 5),
+('The Great Gatsby', 'F. Scott Fitzgerald', 3.93, '0743273567', 'eng', 180, 5),
+('One Hundred Years of Solitude', 'Gabriel García Márquez', 4.08, '0060883286', 'eng', 417, 5),
+('A Passage to India', 'E.M. Forster', 3.67, '0156711427', 'eng', 362, 5),
+('Invisible Man', 'Ralph Ellison', 3.87, '0679732764', 'eng', 581, 5),
+('Don Quixote', 'Miguel de Cervantes', 3.88, '0060934344', 'eng', 984, 5),
+('Beloved', 'Toni Morrison', 3.87, '1400033411', 'eng', 324, 5),
+('Mrs. Dalloway', 'Virginia Woolf', 3.80, '0156628708', 'eng', 194, 5),
+('Things Fall Apart', 'Chinua Achebe', 3.68, '0385474547', 'eng', 209, 5),
+('Jane Eyre', 'Charlotte Brontë', 4.13, '0142437204', 'eng', 532, 5),
+('The Color Purple', 'Alice Walker', 4.22, '0156028352', 'eng', 295, 5),
+('The Catcher in the Rye', 'J.D. Salinger', 3.81, '0316769487', 'eng', 277, 5),
+('Brave New World', 'Aldous Huxley', 3.99, '0060850523', 'eng', 268, 5),
+('The Grapes of Wrath', 'John Steinbeck', 3.98, '0143039431', 'eng', 464, 5),
+('Lord of the Flies', 'William Golding', 3.69, '0399501487', 'eng', 182, 5),
+('Of Mice and Men', 'John Steinbeck', 3.88, '0140177396', 'eng', 103, 5),
+('The Sun Also Rises', 'Ernest Hemingway', 3.83, '0743297334', 'eng', 251, 5),
+('A Farewell to Arms', 'Ernest Hemingway', 3.80, '0684801469', 'eng', 332, 5),
+('For Whom the Bell Tolls', 'Ernest Hemingway', 3.97, '0684803356', 'eng', 471, 5),
+('The Old Man and the Sea', 'Ernest Hemingway', 3.78, '0684801221', 'eng', 128, 5),
+('Catch-22', 'Joseph Heller', 3.98, '0684833395', 'eng', 453, 5),
+('Slaughterhouse-Five', 'Kurt Vonnegut Jr.', 4.08, '0385333846', 'eng', 275, 5),
+('Animal Farm', 'George Orwell', 3.94, '0451526341', 'eng', 144, 5),
+('1984', 'George Orwell', 4.19, '0451524935', 'eng', 328, 5),
+('Fahrenheit 451', 'Ray Bradbury', 3.99, '0345342968', 'eng', 159, 5),
+('The Handmaids Tale', 'Margaret Atwood', 4.11, '038549081X', 'eng', 311, 5),
+('Life of Pi', 'Yann Martel', 3.91, '0156027321', 'eng', 319, 5),
+('The Kite Runner', 'Khaled Hosseini', 4.30, '1594480001', 'eng', 371, 5),
+('A Thousand Splendid Suns', 'Khaled Hosseini', 4.38, '1594489505', 'eng', 372, 5),
+('Memoirs of a Geisha', 'Arthur Golden', 4.12, '0679781587', 'eng', 434, 5),
+('Water for Elephants', 'Sara Gruen', 4.10, '1565125606', 'eng', 335, 5),
+('The Book Thief', 'Markus Zusak', 4.37, '0375842209', 'eng', 552, 5),
+('The Hunger Games', 'Suzanne Collins', 4.33, '0439023483', 'eng', 374, 5),
+('Catching Fire', 'Suzanne Collins', 4.29, '0439023491', 'eng', 391, 5),
+('Mockingjay', 'Suzanne Collins', 4.03, '0439023513', 'eng', 390, 5),
+('Twilight', 'Stephenie Meyer', 3.60, '0316015849', 'eng', 498, 5),
+('New Moon', 'Stephenie Meyer', 3.53, '0316160192', 'eng', 563, 5),
+('Eclipse', 'Stephenie Meyer', 3.69, '0316160206', 'eng', 629, 5),
+('Breaking Dawn', 'Stephenie Meyer', 3.70, '031606792X', 'eng', 756, 5),
+('The Da Vinci Code', 'Dan Brown', 3.86, '0307474275', 'eng', 454, 5),
+('Angels & Demons', 'Dan Brown', 3.90, '0671027360', 'eng', 736, 5),
+('Inferno', 'Dan Brown', 3.84, '0385537859', 'eng', 463, 5),
+('The Lost Symbol', 'Dan Brown', 3.69, '0385504225', 'eng', 509, 5),
+('Digital Fortress', 'Dan Brown', 3.68, '0312944926', 'eng', 430, 5),
+('Deception Point', 'Dan Brown', 3.74, '0671027387', 'eng', 556, 5),
+('Jurassic Park', 'Michael Crichton', 4.03, '0345370775', 'eng', 399, 5),
+('The Lost World', 'Michael Crichton', 3.79, '034540288X', 'eng', 393, 5),
+('Sphere', 'Michael Crichton', 3.80, '0345353145', 'eng', 371, 5),
+('Congo', 'Michael Crichton', 3.58, '0345378490', 'eng', 313, 5),
+('State of Fear', 'Michael Crichton', 3.70, '0061015733', 'eng', 603, 5),
+('Next', 'Michael Crichton', 3.47, '0060872985', 'eng', 431, 5),
+('Prey', 'Michael Crichton', 3.62, '0061015725', 'eng', 367, 5),
+('Airframe', 'Michael Crichton', 3.68, '0345409132', 'eng', 352, 5),
+('Timeline', 'Michael Crichton', 3.85, '0345417623', 'eng', 449, 5),
+('Disclosure', 'Michael Crichton', 3.76, '0345391055', 'eng', 400, 5),
+('Rising Sun', 'Michael Crichton', 3.66, '0345380371', 'eng', 355, 5),
+('Misery', 'Stephen King', 4.17, '0451153553', 'eng', 310, 5),
+('It', 'Stephen King', 4.24, '0451169514', 'eng', 1138, 5),
+('The Shining', 'Stephen King', 4.23, '0450040186', 'eng', 447, 5),
+('Carrie', 'Stephen King', 3.96, '0307743667', 'eng', 199, 5),
+('Salems Lot', 'Stephen King', 4.03, '0345908333', 'eng', 483, 5),
+('Pet Sematary', 'Stephen King', 3.95, '0743412273', 'eng', 374, 5),
+('The Stand', 'Stephen King', 4.34, '0307743683', 'eng', 1153, 5),
+('The Green Mile', 'Stephen King', 4.45, '0671032658', 'eng', 536, 5),
+('The Gunslinger', 'Stephen King', 3.95, '0451210840', 'eng', 224, 5),
+('The Drawing of the Three', 'Stephen King', 4.23, '0451210859', 'eng', 400, 5),
+('The Waste Lands', 'Stephen King', 4.24, '0451210867', 'eng', 512, 5),
+('Wizard and Glass', 'Stephen King', 4.24, '0451210875', 'eng', 887, 5),
+('Wolves of the Calla', 'Stephen King', 4.19, '1848940843', 'eng', 931, 5),
+('Song of Susannah', 'Stephen King', 3.97, '1848940851', 'eng', 495, 5),
+('The Dark Tower', 'Stephen King', 4.24, '1416524525', 'eng', 845, 5),
+('Gone Girl', 'Gillian Flynn', 4.08, '0307588378', 'eng', 419, 5),
+('Sharp Objects', 'Gillian Flynn', 3.96, '0307341550', 'eng', 254, 5),
+('Dark Places', 'Gillian Flynn', 3.94, '0307341577', 'eng', 349, 5),
+('The Girl on the Train', 'Paula Hawkins', 3.93, '1594633665', 'eng', 323, 5),
+('Big Little Lies', 'Liane Moriarty', 4.27, '0399167064', 'eng', 460, 5),
+('The Husbands Secret', 'Liane Moriarty', 3.95, '0399159347', 'eng', 396, 5),
+('Me Before You', 'Jojo Moyes', 4.26, '0143124544', 'eng', 369, 5),
+('After You', 'Jojo Moyes', 3.73, '0525426592', 'eng', 352, 5),
+('The Notebook', 'Nicholas Sparks', 4.10, '0446605239', 'eng', 214, 5),
+('A Walk to Remember', 'Nicholas Sparks', 4.18, '0446608955', 'eng', 240, 5),
+('Dear John', 'Nicholas Sparks', 4.03, '0446528056', 'eng', 276, 5),
+('The Last Song', 'Nicholas Sparks', 4.14, '0446547565', 'eng', 390, 5),
+('Safe Haven', 'Nicholas Sparks', 4.19, '044654759X', 'eng', 340, 5),
+('The Lucky One', 'Nicholas Sparks', 4.18, '0446579939', 'eng', 326, 5);
