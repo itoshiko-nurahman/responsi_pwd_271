@@ -89,7 +89,7 @@ if (isset($_GET['id'])) {
       </div>
 
       <div class="flex items-center justify-end gap-4 pt-6 border-t border-gray-100">
-        <a href="index" class="px-6 py-3 rounded-xl font-bold text-gray-500 hover:bg-gray-100 transition">Batal</a>
+        <a href="../index" class="px-6 py-3 rounded-xl font-bold text-gray-500 hover:bg-gray-100 transition">Batal</a>
         <button type="submit" class="bg-primary text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:bg-blue-800 transition transform hover:-translate-y-0.5">
           Simpan Data
         </button>
