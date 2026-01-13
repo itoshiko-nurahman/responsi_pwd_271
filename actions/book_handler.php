@@ -1,5 +1,4 @@
 <?php
-// actions/book_handler.php
 session_start();
 require '../config/db.php';
 
@@ -21,7 +20,6 @@ if (isset($_GET['delete'])) {
   exit;
 }
 
-// CREATE / UPDATE
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $id = $_POST['id'];
   $title = $_POST['title'];

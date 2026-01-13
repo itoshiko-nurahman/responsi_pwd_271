@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $data = $check->fetch(PDO::FETCH_ASSOC);
 
   if ($data) {
-    // Jika data ada, kita TOGGLE (ubah true ke false atau sebaliknya)
+    // Jika data ada, kita TOGGLE
     if ($type === 'favorite') {
       $new_val = $data['is_favorite'] ? 0 : 1;
       $sql = "UPDATE user_interactions SET is_favorite = ? WHERE id = ?";

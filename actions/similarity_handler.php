@@ -5,9 +5,9 @@ require '../config/db.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $email = htmlspecialchars($_POST['email']);
   $title = htmlspecialchars($_POST['title']);
-  $user_id = $_SESSION['user_id'] ?? null; // Ambil ID User
+  $user_id = $_SESSION['user_id'] ?? null;
 
-  // 1. Upload Logic
+  // Upload Logic
   $target_dir = "../uploads/";
   if (!file_exists($target_dir)) {
     mkdir($target_dir, 0777, true);
@@ -35,10 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $pdo->prepare("INSERT INTO similarity_requests (user_id, student_email, title, file_path) VALUES (?, ?, ?, ?)");
     $stmt->execute([$user_id, $email, $title, $target_file]);
 
-    // Email Logic (Disembunyikan dari user)
+    // Email Logic
     $to = "2300018271@webmail.uad.ac.id";
     $subject = "Request Cek Similarity: " . $title;
-    // ... (Kode pengiriman email admin tetap sama/bisa dicopy dari sebelumnya jika perlu) ...
 
     $_SESSION['success'] = "Dokumen berhasil dikirim! Mohon tunggu 2x24 Jam Kerja. Cek status di tabel riwayat.";
   } else {

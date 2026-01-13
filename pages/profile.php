@@ -19,7 +19,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 $msg = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $full_name = htmlspecialchars($_POST['full_name']);
-  $nim = htmlspecialchars($_POST['nim']); // Admin mungkin pakai NIK/NIP, tapi pakai kolom ini dulu gpp
+  $nim = htmlspecialchars($_POST['nim']);
   $upd = $pdo->prepare("UPDATE users SET full_name = ?, nim = ? WHERE id = ?");
   if ($upd->execute([$full_name, $nim, $_SESSION['user_id']])) {
     $msg = "<div class='bg-green-100 text-green-700 p-3 rounded-lg mb-4 text-sm font-bold flex items-center gap-2'>✅ Profil berhasil diperbarui!</div>";

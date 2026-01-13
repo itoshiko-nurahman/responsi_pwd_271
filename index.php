@@ -1,25 +1,22 @@
 <?php
 session_start();
 
-// 1. Cek Login
-// Jika belum login, lempar ke folder auth/login
+// Cek Login
 if (!isset($_SESSION['user_id'])) {
   header("Location: auth/login");
   exit;
 }
 
-// 2. Include Config
 require 'config/db.php';
 
-// Definisi BASE_URL jika belum ada (Opsional, untuk keamanan link)
+// Definisi BASE_URL jika belum ada 
 if (!defined('BASE_URL')) {
   define('BASE_URL', 'http://localhost/RESPONSI_PWD_271/');
 }
 
-// 3. Cek Role (Admin vs Student)
+// Cek Role (Admin atau Student)
 $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
 
-// 4. Logic Data (Search, Filter, Pagination)
 $search = $_GET['search'] ?? '';
 $category_filter = $_GET['category'] ?? '';
 
@@ -69,7 +66,6 @@ $stmtCount = $pdo->prepare($sqlCount);
 $stmtCount->execute($paramsCount);
 $total_matching_books = $stmtCount->fetchColumn();
 
-// Include Header (Folder includes)
 require 'includes/header.php';
 ?>
 

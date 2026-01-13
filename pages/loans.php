@@ -10,7 +10,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $isAdmin = ($_SESSION['role'] === 'admin');
 
-// Logic Data
 if ($isAdmin) {
   // Admin: Ambil semua data + Statistik
   $loans = $pdo->query("SELECT loans.*, books.title, books.image_url FROM loans JOIN books ON loans.book_id = books.id ORDER BY status ASC, loan_date DESC")->fetchAll();

@@ -2,7 +2,6 @@
 session_start();
 require '../config/db.php';
 
-// Cek Admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
   header("Location: ../index");
   exit;
@@ -11,9 +10,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 // Jenis Laporan yang diminta
 $type = $_GET['type'] ?? null;
 
-// ================= MODE CETAK (PRINT VIEW) =================
 if ($type) {
-  // Nonaktifkan Layout Header default
   $data = [];
   $title_report = "";
 
@@ -160,10 +157,9 @@ if ($type) {
 
   </html>
 <?php
-  exit; // Stop script disini agar footer web tidak ikut ter-print
+  exit;
 }
 
-// ================= MODE MENU (WEB VIEW) =================
 require '../includes/header.php';
 ?>
 

@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if (empty($username) || empty($password)) {
     $_SESSION['error'] = "Silakan isi username dan password!";
-    // UBAH DISINI: Arahkan kembali ke folder auth
     header("Location: ../auth/login");
     exit;
   }
@@ -27,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $_SESSION['role'] = $user['role'];
       $_SESSION['nim'] = $user['nim'] ?? null;
 
-      // Redirect ke Dashboard (Naik satu folder ke root)
+      // Redirect ke Dashboard
       header("Location: ../index");
       exit;
     } else {
